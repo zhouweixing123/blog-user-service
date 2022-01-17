@@ -1,2 +1,2 @@
 build:
-	protoc -I. --go_out=plugins=micro:. proto/user/user.proto
+	protoc.exe -I. --go_out=plugins=micro:. proto/user/user.proto
