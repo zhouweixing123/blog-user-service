@@ -2,9 +2,16 @@ syntax = "proto3";
 package blog.user.service;
 option go_package = "blog.user.service";
 service UserService {
+  // 创建用户
   rpc Create(User) returns (Response){}
+  // 通过主键ID获取用户信息
   rpc Get(User) returns (Response){}
+  // 获取所有的用户信息
   rpc GetAll(Request) returns (Response){}
+  // 认证接口
+  rpc Auth(User) returns (Token){}
+  // 密码校验
+  rpc ValidateToken(Token) returns (Token){}
 }
 
 message User {
@@ -27,4 +34,10 @@ message Response {
 message Error {
   int32 code = 1;
   string description = 2;
+}
+
+message Token {
+  string token = 1;
+  bool valid = 2;
+  repeated Error errors = 3;
 }

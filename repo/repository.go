@@ -25,7 +25,7 @@ func (repo *UserRepository) Create(user *blog_user_service.User) error {
 
 func (repo *UserRepository) GetByEmail(email string) (*blog_user_service.User, error) {
 	user := &blog_user_service.User{}
-	err := repo.DB.Where("email = ?", email).First(&user).Error
+	err := repo.DB.Where("phone = ?", email).First(&user).Error
 	if err != nil {
 		return nil, err
 	}
