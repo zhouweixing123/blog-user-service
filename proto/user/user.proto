@@ -1,0 +1,30 @@
+syntax = "proto3";
+package blog.user.service;
+option go_package = "blog.user.service";
+service UserService {
+  rpc Create(User) returns (Response){}
+  rpc Get(User) returns (Response){}
+  rpc GetAll(Request) returns (Response){}
+}
+
+message User {
+  string id = 1;
+  string account = 2;
+  string phone = 3;
+  string pwd = 4;
+  string created_at = 5;
+  string updated_at = 6;
+}
+
+message Request {}
+
+message Response {
+  User user = 1;
+  repeated User users = 2;
+  repeated Error errors = 3;
+}
+
+message Error {
+  int32 code = 1;
+  string description = 2;
+}
