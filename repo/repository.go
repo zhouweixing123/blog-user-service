@@ -2,7 +2,7 @@ package repo
 
 import (
 	"github.com/jinzhu/gorm"
-	blog_user_service "user-service/proto/user"
+	blog_user_service "github.com/zhouweixing123/blog-user-service/proto/user"
 )
 
 type Repository interface {

@@ -1,10 +1,10 @@
 package handler
 
 import (
+	blog_user_service "github.com/zhouweixing123/blog-user-service/proto/user"
+	"github.com/zhouweixing123/blog-user-service/repo"
 	"golang.org/x/crypto/bcrypt"
 	"golang.org/x/net/context"
-	blog_user_service "user-service/proto/user"
-	"user-service/repo"
 )
 
 type UserService struct {

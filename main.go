@@ -3,11 +3,11 @@ package main
 import (
 	"fmt"
 	"github.com/micro/go-micro"
+	db2 "github.com/zhouweixing123/blog-user-service/db"
+	"github.com/zhouweixing123/blog-user-service/handler"
+	blog_user_service "github.com/zhouweixing123/blog-user-service/proto/user"
+	repo2 "github.com/zhouweixing123/blog-user-service/repo"
 	"log"
-	db2 "user-service/db"
-	"user-service/handler"
-	blog_user_service "user-service/proto/user"
-	repo2 "user-service/repo"
 )
 
 func main() {
