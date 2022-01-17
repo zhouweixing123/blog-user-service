@@ -16,16 +16,20 @@ WORKDIR /app/blog-user-service
 
 COPY . .
 
+# 下载依赖
 RUN go mod download
 
+# 重新下载net依赖包
 RUN rm -rf $GOPATH/pkg/mod/golang.org/x/net\@v0.0.0-20220114011407-0dd24b26b47d
 RUN cd $GOPATH/pkg/mod/golang.org/x && git clone https://github.com/golang/net.git net\@v0.0.0-20220114011407-0dd24b26b47d
 RUN cd $GOPATH/pkg/mod/golang.org/x/net\@v0.0.0-20220114011407-0dd24b26b47d && git checkout release-branch.go1.14
 
 WORKDIR /app/blog-user-service
 
+# 由于重新下载了net依赖包需要重新加载一次所需要的依赖
 RUN go mod tidy
 
+# 打包go程序
 RUN CGO_ENABLED=0 GOOS=linux go build -a -installsuffix cgo -o blog-user-service
 
 FROM alpine:latest

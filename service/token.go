@@ -8,7 +8,7 @@ import (
 )
 
 // 加密的盐
-var key = "zwx114003..."
+var key = []byte("zwx114003...")
 
 type UserClaims struct {
 	User *blog_user_service.User
