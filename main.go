@@ -24,7 +24,7 @@ func main() {
 		Repo: repo,
 	}
 	srv := micro.NewService(
-		micro.Name("blog.user.service"),
+		micro.Name("blog.service.user"),
 		micro.Version("latest"),
 	)
 	srv.Init()

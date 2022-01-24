@@ -1,4 +1,4 @@
-package blog_user_service
+package blog_service_user
 
 import (
 	"github.com/jinzhu/gorm"

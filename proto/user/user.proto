@@ -1,6 +1,6 @@
 syntax = "proto3";
-package blog.user.service;
-option go_package = "blog.user.service";
+package blog.service.user;
+// 相当于路由
 service UserService {
   // 创建用户
   rpc Create(User) returns (Response){}
@@ -12,15 +12,27 @@ service UserService {
   rpc Auth(User) returns (Token){}
   // 密码校验
   rpc ValidateToken(Token) returns (Token){}
+
+
+  rpc CheckUniqueAccount(User) returns (Response){}
+
+  rpc CheckUniqueEmail(User) returns (Response){}
+
+  rpc CheckUniquePhone(User) returns (Response){}
 }
 
 message User {
   string id = 1;
   string account = 2;
-  string phone = 3;
-  string pwd = 4;
-  string created_at = 5;
-  string updated_at = 6;
+  int64 ip = 3;
+  string email = 4;
+  string profile_photo = 5;
+  string registration_time = 6;
+  string birthday = 7;
+  string phone = 8;
+  string nickname = 9;
+  string created_at = 10;
+  string pwd = 11;
 }
 
 message Request {}
