@@ -37,7 +37,8 @@ type User struct {
 	Phone                string   `protobuf:"bytes,8,opt,name=phone,proto3" json:"phone,omitempty"`
 	Nickname             string   `protobuf:"bytes,9,opt,name=nickname,proto3" json:"nickname,omitempty"`
 	CreatedAt            string   `protobuf:"bytes,10,opt,name=created_at,json=createdAt,proto3" json:"created_at,omitempty"`
-	Pwd                  string   `protobuf:"bytes,11,opt,name=pwd,proto3" json:"pwd,omitempty"`
+	UpdatedAt            string   `protobuf:"bytes,11,opt,name=updated_at,json=updatedAt,proto3" json:"updated_at,omitempty"`
+	Pwd                  string   `protobuf:"bytes,12,opt,name=pwd,proto3" json:"pwd,omitempty"`
 	XXX_NoUnkeyedLiteral struct{} `json:"-"`
 	XXX_unrecognized     []byte   `json:"-"`
 	XXX_sizecache        int32    `json:"-"`
@@ -134,6 +135,13 @@ func (m *User) GetNickname() string {
 func (m *User) GetCreatedAt() string {
 	if m != nil {
 		return m.CreatedAt
+	}
+	return ""
+}
+
+func (m *User) GetUpdatedAt() string {
+	if m != nil {
+		return m.UpdatedAt
 	}
 	return ""
 }
@@ -333,50 +341,152 @@ func (m *Token) GetErrors() []*Error {
 	return nil
 }
 
+type PwdReset struct {
+	Email                string   `protobuf:"bytes,1,opt,name=email,proto3" json:"email,omitempty"`
+	Token                string   `protobuf:"bytes,2,opt,name=token,proto3" json:"token,omitempty"`
+	XXX_NoUnkeyedLiteral struct{} `json:"-"`
+	XXX_unrecognized     []byte   `json:"-"`
+	XXX_sizecache        int32    `json:"-"`
+}
+
+func (m *PwdReset) Reset()         { *m = PwdReset{} }
+func (m *PwdReset) String() string { return proto.CompactTextString(m) }
+func (*PwdReset) ProtoMessage()    {}
+func (*PwdReset) Descriptor() ([]byte, []int) {
+	return fileDescriptor_9b283a848145d6b7, []int{5}
+}
+
+func (m *PwdReset) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_PwdReset.Unmarshal(m, b)
+}
+func (m *PwdReset) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_PwdReset.Marshal(b, m, deterministic)
+}
+func (m *PwdReset) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_PwdReset.Merge(m, src)
+}
+func (m *PwdReset) XXX_Size() int {
+	return xxx_messageInfo_PwdReset.Size(m)
+}
+func (m *PwdReset) XXX_DiscardUnknown() {
+	xxx_messageInfo_PwdReset.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_PwdReset proto.InternalMessageInfo
+
+func (m *PwdReset) GetEmail() string {
+	if m != nil {
+		return m.Email
+	}
+	return ""
+}
+
+func (m *PwdReset) GetToken() string {
+	if m != nil {
+		return m.Token
+	}
+	return ""
+}
+
+type PwdResetResponse struct {
+	PwdReset             *PwdReset `protobuf:"bytes,1,opt,name=pwdReset,proto3" json:"pwdReset,omitempty"`
+	Errors               []*Error  `protobuf:"bytes,2,rep,name=errors,proto3" json:"errors,omitempty"`
+	XXX_NoUnkeyedLiteral struct{}  `json:"-"`
+	XXX_unrecognized     []byte    `json:"-"`
+	XXX_sizecache        int32     `json:"-"`
+}
+
+func (m *PwdResetResponse) Reset()         { *m = PwdResetResponse{} }
+func (m *PwdResetResponse) String() string { return proto.CompactTextString(m) }
+func (*PwdResetResponse) ProtoMessage()    {}
+func (*PwdResetResponse) Descriptor() ([]byte, []int) {
+	return fileDescriptor_9b283a848145d6b7, []int{6}
+}
+
+func (m *PwdResetResponse) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_PwdResetResponse.Unmarshal(m, b)
+}
+func (m *PwdResetResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_PwdResetResponse.Marshal(b, m, deterministic)
+}
+func (m *PwdResetResponse) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_PwdResetResponse.Merge(m, src)
+}
+func (m *PwdResetResponse) XXX_Size() int {
+	return xxx_messageInfo_PwdResetResponse.Size(m)
+}
+func (m *PwdResetResponse) XXX_DiscardUnknown() {
+	xxx_messageInfo_PwdResetResponse.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_PwdResetResponse proto.InternalMessageInfo
+
+func (m *PwdResetResponse) GetPwdReset() *PwdReset {
+	if m != nil {
+		return m.PwdReset
+	}
+	return nil
+}
+
+func (m *PwdResetResponse) GetErrors() []*Error {
+	if m != nil {
+		return m.Errors
+	}
+	return nil
+}
+
 func init() {
 	proto.RegisterType((*User)(nil), "blog.service.user.User")
 	proto.RegisterType((*Request)(nil), "blog.service.user.Request")
 	proto.RegisterType((*Response)(nil), "blog.service.user.Response")
 	proto.RegisterType((*Error)(nil), "blog.service.user.Error")
 	proto.RegisterType((*Token)(nil), "blog.service.user.Token")
+	proto.RegisterType((*PwdReset)(nil), "blog.service.user.PwdReset")
+	proto.RegisterType((*PwdResetResponse)(nil), "blog.service.user.PwdResetResponse")
 }
 
 func init() { proto.RegisterFile("proto/user/user.proto", fileDescriptor_9b283a848145d6b7) }
 
 var fileDescriptor_9b283a848145d6b7 = []byte{
-	// 504 bytes of a gzipped FileDescriptorProto
-	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0xac, 0x94, 0xdf, 0x6a, 0x13, 0x41,
-	0x14, 0xc6, 0x9b, 0xfd, 0x93, 0x3f, 0x27, 0x56, 0xd2, 0x83, 0xe2, 0x10, 0x11, 0xc2, 0x7a, 0x53,
-	0x28, 0x46, 0xa9, 0x97, 0x52, 0x30, 0x84, 0x50, 0x10, 0x2f, 0xca, 0xda, 0x7a, 0x1b, 0x36, 0xbb,
-	0xc7, 0x66, 0xc8, 0x66, 0x67, 0x3b, 0x33, 0x5b, 0xf1, 0x4d, 0x7c, 0x03, 0x9f, 0xc2, 0x77, 0x93,
-	0x39, 0xbb, 0x91, 0x80, 0x49, 0xc5, 0xe0, 0x4d, 0x32, 0xdf, 0x77, 0x7e, 0x73, 0x38, 0xfb, 0xcd,
-	0xce, 0xc2, 0xd3, 0x52, 0x2b, 0xab, 0x5e, 0x57, 0x86, 0x34, 0xff, 0x8c, 0x59, 0xe3, 0xc9, 0x22,
-	0x57, 0xb7, 0x63, 0x43, 0xfa, 0x5e, 0xa6, 0x34, 0x76, 0x85, 0xe8, 0x87, 0x07, 0xc1, 0x8d, 0x21,
-	0x8d, 0x8f, 0xc1, 0x93, 0x99, 0x68, 0x8d, 0x5a, 0xa7, 0xbd, 0xd8, 0x93, 0x19, 0x0a, 0xe8, 0x24,
-	0x69, 0xaa, 0xaa, 0xc2, 0x0a, 0x8f, 0xcd, 0x8d, 0x64, 0xb2, 0x14, 0xfe, 0xa8, 0x75, 0xea, 0xc7,
-	0x9e, 0x2c, 0xf1, 0x09, 0x84, 0xb4, 0x4e, 0x64, 0x2e, 0x02, 0xe6, 0x6a, 0x81, 0x2f, 0xe1, 0xb8,
-	0xd4, 0xea, 0x8b, 0xcc, 0x69, 0x5e, 0x2e, 0x95, 0x55, 0x22, 0xe4, 0xea, 0xa3, 0xc6, 0xbc, 0x72,
-	0x1e, 0x9e, 0xc1, 0x89, 0xa6, 0x5b, 0x69, 0xac, 0x4e, 0xac, 0x54, 0xc5, 0xdc, 0xca, 0x35, 0x89,
-	0x36, 0x83, 0x83, 0xed, 0xc2, 0xb5, 0x5c, 0x13, 0x0e, 0xa1, 0xbb, 0x90, 0xda, 0x2e, 0xb3, 0xe4,
-	0x9b, 0xe8, 0x30, 0xf3, 0x5b, 0xbb, 0x19, 0xca, 0xa5, 0x2a, 0x48, 0x74, 0xeb, 0x19, 0x58, 0xb8,
-	0x1d, 0x85, 0x4c, 0x57, 0x45, 0xb2, 0x26, 0xd1, 0xab, 0x77, 0x6c, 0x34, 0xbe, 0x00, 0x48, 0x35,
-	0x25, 0x96, 0xb2, 0x79, 0x62, 0x05, 0x70, 0xb5, 0xd7, 0x38, 0x13, 0x8b, 0x03, 0xf0, 0xcb, 0xaf,
-	0x99, 0xe8, 0xb3, 0xef, 0x96, 0x51, 0x0f, 0x3a, 0x31, 0xdd, 0x55, 0x64, 0x6c, 0xf4, 0xbd, 0x05,
-	0xdd, 0x98, 0x4c, 0xa9, 0x0a, 0x43, 0x78, 0x06, 0x81, 0x4b, 0x92, 0xa3, 0xeb, 0x9f, 0x3f, 0x1b,
-	0xff, 0x91, 0xf1, 0xd8, 0xe5, 0x1b, 0x33, 0x84, 0xaf, 0x20, 0x74, 0xff, 0x46, 0x78, 0x23, 0xff,
-	0x21, 0xba, 0xa6, 0xf0, 0x0d, 0xb4, 0x49, 0x6b, 0xa5, 0x8d, 0xf0, 0x99, 0x17, 0x3b, 0xf8, 0x99,
-	0x03, 0xe2, 0x86, 0x8b, 0x2e, 0x20, 0x64, 0x03, 0x11, 0x82, 0x54, 0x65, 0xc4, 0x63, 0x85, 0x31,
-	0xaf, 0x71, 0x04, 0xfd, 0x8c, 0x4c, 0xaa, 0x65, 0xe9, 0x42, 0x6d, 0xce, 0x75, 0xdb, 0x8a, 0x08,
-	0xc2, 0x6b, 0xb5, 0xa2, 0xc2, 0x05, 0x6a, 0xdd, 0xa2, 0x79, 0x23, 0x6a, 0xe1, 0xdc, 0xfb, 0x24,
-	0x97, 0x19, 0x6f, 0xed, 0xc6, 0xb5, 0xf8, 0xf7, 0x29, 0xcf, 0x7f, 0x06, 0xd0, 0x77, 0xcf, 0xf9,
-	0xa9, 0x46, 0xf0, 0x3d, 0xb4, 0xa7, 0x1c, 0x3d, 0xee, 0x4b, 0x64, 0xf8, 0x7c, 0x47, 0x61, 0x73,
-	0x06, 0xd1, 0x11, 0x5e, 0x80, 0x7f, 0x49, 0xf6, 0xe0, 0xed, 0x53, 0x68, 0x5f, 0x92, 0x9d, 0xe4,
-	0x39, 0x0e, 0x77, 0x82, 0x7c, 0xee, 0x7f, 0x6b, 0xf2, 0x0e, 0x82, 0x49, 0x65, 0x97, 0xfb, 0x87,
-	0xd8, 0x15, 0x0c, 0xc7, 0x1d, 0x1d, 0xe1, 0x0c, 0x8e, 0x3f, 0xbb, 0x34, 0x13, 0x4b, 0xf5, 0x09,
-	0xec, 0x85, 0x1f, 0x6c, 0xf3, 0x11, 0x70, 0xba, 0xa4, 0x74, 0x75, 0x53, 0xc8, 0xbb, 0x8a, 0x26,
-	0xcd, 0x95, 0x3d, 0x34, 0x96, 0x0f, 0x30, 0xd8, 0xea, 0x36, 0xe3, 0x8b, 0xfd, 0x7f, 0x7a, 0x5d,
-	0xf1, 0x05, 0x3d, 0xb0, 0xd7, 0xa2, 0xcd, 0xdf, 0xb3, 0xb7, 0xbf, 0x02, 0x00, 0x00, 0xff, 0xff,
-	0xce, 0x3a, 0x1b, 0xb4, 0xe8, 0x04, 0x00, 0x00,
+	// 604 bytes of a gzipped FileDescriptorProto
+	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0xac, 0x55, 0x51, 0x6f, 0x12, 0x41,
+	0x10, 0x2e, 0x07, 0x07, 0xc7, 0x40, 0x0d, 0x5d, 0x6d, 0xdc, 0x60, 0x4c, 0xc8, 0xf5, 0xa5, 0x49,
+	0x23, 0x9a, 0x9a, 0xe8, 0x83, 0xf1, 0x01, 0x04, 0x79, 0x32, 0x21, 0x67, 0xdb, 0xc4, 0x27, 0x72,
+	0xdc, 0x8d, 0x65, 0xd3, 0xe3, 0xf6, 0xdc, 0x5b, 0xda, 0xf0, 0xe0, 0xff, 0xf0, 0xb7, 0xf8, 0x03,
+	0xfc, 0x5d, 0x66, 0xe7, 0xee, 0x28, 0x46, 0x40, 0x83, 0xbe, 0xc0, 0xce, 0xcc, 0x37, 0xb3, 0xdf,
+	0xce, 0x7c, 0xbb, 0x07, 0xc7, 0x89, 0x92, 0x5a, 0x3e, 0x5f, 0xa4, 0xa8, 0xe8, 0xa7, 0x4b, 0x36,
+	0x3b, 0x9a, 0x46, 0xf2, 0xba, 0x9b, 0xa2, 0xba, 0x15, 0x01, 0x76, 0x4d, 0xc0, 0xfd, 0x61, 0x41,
+	0xe5, 0x32, 0x45, 0xc5, 0x1e, 0x80, 0x25, 0x42, 0x5e, 0xea, 0x94, 0x4e, 0xeb, 0x9e, 0x25, 0x42,
+	0xc6, 0xa1, 0xe6, 0x07, 0x81, 0x5c, 0xc4, 0x9a, 0x5b, 0xe4, 0x2c, 0x4c, 0x42, 0x26, 0xbc, 0xdc,
+	0x29, 0x9d, 0x96, 0x3d, 0x4b, 0x24, 0xec, 0x11, 0xd8, 0x38, 0xf7, 0x45, 0xc4, 0x2b, 0x84, 0xcb,
+	0x0c, 0x76, 0x02, 0x87, 0x89, 0x92, 0x9f, 0x45, 0x84, 0x93, 0x64, 0x26, 0xb5, 0xe4, 0x36, 0x45,
+	0x9b, 0xb9, 0x73, 0x6c, 0x7c, 0xec, 0x0c, 0x8e, 0x14, 0x5e, 0x8b, 0x54, 0x2b, 0x5f, 0x0b, 0x19,
+	0x4f, 0xb4, 0x98, 0x23, 0xaf, 0x12, 0xb0, 0xb5, 0x1e, 0xb8, 0x10, 0x73, 0x64, 0x6d, 0x70, 0xa6,
+	0x42, 0xe9, 0x59, 0xe8, 0x2f, 0x79, 0x8d, 0x30, 0x2b, 0xdb, 0x70, 0x48, 0x66, 0x32, 0x46, 0xee,
+	0x64, 0x1c, 0xc8, 0x30, 0x19, 0xb1, 0x08, 0x6e, 0x62, 0x7f, 0x8e, 0xbc, 0x9e, 0x65, 0x14, 0x36,
+	0x7b, 0x0a, 0x10, 0x28, 0xf4, 0x35, 0x86, 0x13, 0x5f, 0x73, 0xa0, 0x68, 0x3d, 0xf7, 0xf4, 0xb4,
+	0x09, 0x2f, 0x92, 0xb0, 0x08, 0x37, 0xb2, 0x70, 0xee, 0xe9, 0x69, 0xd6, 0x82, 0x72, 0x72, 0x17,
+	0xf2, 0x26, 0xf9, 0xcd, 0xd2, 0xad, 0x43, 0xcd, 0xc3, 0x2f, 0x0b, 0x4c, 0xb5, 0xfb, 0xad, 0x04,
+	0x8e, 0x87, 0x69, 0x22, 0xe3, 0x14, 0xd9, 0x19, 0x54, 0x4c, 0xa3, 0xa9, 0xb3, 0x8d, 0xf3, 0xc7,
+	0xdd, 0xdf, 0x46, 0xd0, 0x35, 0xed, 0xf7, 0x08, 0xc4, 0x9e, 0x81, 0x6d, 0xfe, 0x53, 0x6e, 0x75,
+	0xca, 0xbb, 0xd0, 0x19, 0x8a, 0xbd, 0x80, 0x2a, 0x2a, 0x25, 0x55, 0xca, 0xcb, 0x84, 0xe7, 0x1b,
+	0xf0, 0x43, 0x03, 0xf0, 0x72, 0x9c, 0xfb, 0x16, 0x6c, 0x72, 0x30, 0x06, 0x95, 0x40, 0x86, 0x48,
+	0xb4, 0x6c, 0x8f, 0xd6, 0xac, 0x03, 0x8d, 0x10, 0xd3, 0x40, 0x89, 0xc4, 0xf4, 0x3c, 0x1f, 0xfb,
+	0xba, 0xcb, 0x45, 0xb0, 0x2f, 0xe4, 0x0d, 0xc6, 0xa6, 0xdf, 0xda, 0x2c, 0x72, 0xc1, 0x64, 0x86,
+	0xf1, 0xde, 0xfa, 0x91, 0x08, 0x29, 0xd5, 0xf1, 0x32, 0x63, 0x0f, 0x96, 0xaf, 0xc0, 0x19, 0xdf,
+	0x85, 0x1e, 0xa6, 0xa8, 0xef, 0xd5, 0x55, 0x5a, 0x57, 0xd7, 0x6a, 0x7f, 0x6b, 0x6d, 0x7f, 0xf7,
+	0x2b, 0xb4, 0x8a, 0xbc, 0x55, 0xff, 0x5f, 0x83, 0x93, 0xe4, 0xbe, 0x7c, 0x06, 0x4f, 0x36, 0xec,
+	0xbf, 0x4a, 0x5b, 0x81, 0xd7, 0x68, 0x5b, 0x7f, 0x47, 0xfb, 0xfc, 0x7b, 0x15, 0x1a, 0x66, 0x3c,
+	0x1f, 0x33, 0x08, 0xeb, 0x1b, 0x19, 0x18, 0x11, 0xa3, 0x62, 0xdb, 0x46, 0xd9, 0xde, 0xc4, 0xa6,
+	0x20, 0xef, 0x1e, 0xb0, 0x11, 0xc0, 0x08, 0x75, 0x2f, 0x8a, 0xe8, 0x92, 0xb6, 0x37, 0x82, 0x49,
+	0x75, 0x7f, 0x2a, 0xf4, 0x1e, 0x9a, 0x23, 0xd4, 0xfd, 0x65, 0x2f, 0xbf, 0xc5, 0xfb, 0x12, 0x1a,
+	0x10, 0xa1, 0xfe, 0x72, 0x48, 0x73, 0xf8, 0xd7, 0x2a, 0x63, 0xba, 0xa7, 0xfb, 0x56, 0x79, 0x03,
+	0x95, 0xde, 0x42, 0xcf, 0xb6, 0xe7, 0x6f, 0x9a, 0x19, 0x09, 0xd8, 0x3d, 0x60, 0x43, 0x38, 0xbc,
+	0x32, 0xfa, 0xf4, 0x35, 0x66, 0x9a, 0xde, 0x0a, 0xde, 0x59, 0x66, 0x00, 0x70, 0x49, 0xcf, 0x02,
+	0x0d, 0x68, 0xdf, 0x93, 0x7c, 0x82, 0x87, 0xef, 0xe8, 0xed, 0x29, 0x84, 0x98, 0x51, 0xda, 0x25,
+	0xd5, 0xf6, 0xc9, 0x2e, 0x1d, 0xdf, 0x97, 0xfe, 0x00, 0xc7, 0xc5, 0x39, 0x7f, 0x2d, 0xbe, 0xdf,
+	0x79, 0xaf, 0xa0, 0x35, 0xc0, 0xe8, 0xbf, 0xd3, 0x9c, 0x56, 0xe9, 0x13, 0xf5, 0xf2, 0x67, 0x00,
+	0x00, 0x00, 0xff, 0xff, 0xa7, 0xe0, 0xfb, 0xd3, 0xbb, 0x06, 0x00, 0x00,
 }
 
 // Reference imports to suppress errors if they are not otherwise used.
@@ -387,19 +497,28 @@ var _ server.Option
 // Client API for UserService service
 
 type UserServiceClient interface {
-	// 创建用户
-	Create(ctx context.Context, in *User, opts ...client.CallOption) (*Response, error)
-	// 通过主键ID获取用户信息
-	Get(ctx context.Context, in *User, opts ...client.CallOption) (*Response, error)
-	// 获取所有的用户信息
-	GetAll(ctx context.Context, in *Request, opts ...client.CallOption) (*Response, error)
-	// 认证接口
+	//Register 创建用户
+	Register(ctx context.Context, in *User, opts ...client.CallOption) (*Response, error)
+	//GetAllUser 获取所有的用户信息
+	GetAllUser(ctx context.Context, in *Request, opts ...client.CallOption) (*Response, error)
+	//GetByAccount 通过账号获取用户信息
+	GetByAccount(ctx context.Context, in *User, opts ...client.CallOption) (*Response, error)
+	//GetByEmail 通过用户邮箱获取用户信息
+	GetByEmail(ctx context.Context, in *User, opts ...client.CallOption) (*Response, error)
+	//GetByPhone 通过手机号获取用户信息
+	GetByPhone(ctx context.Context, in *User, opts ...client.CallOption) (*Response, error)
+	//Auth 认证接口
 	Auth(ctx context.Context, in *User, opts ...client.CallOption) (*Token, error)
-	// 密码校验
+	//ValidateToken 密码校验
 	ValidateToken(ctx context.Context, in *Token, opts ...client.CallOption) (*Token, error)
-	CheckUniqueAccount(ctx context.Context, in *User, opts ...client.CallOption) (*Response, error)
-	CheckUniqueEmail(ctx context.Context, in *User, opts ...client.CallOption) (*Response, error)
-	CheckUniquePhone(ctx context.Context, in *User, opts ...client.CallOption) (*Response, error)
+	//UpdateUser 修改用户信息
+	UpdateUser(ctx context.Context, in *User, opts ...client.CallOption) (*Response, error)
+	//CreatePwdResetToken 创建重置密码Token
+	CreatePwdResetToken(ctx context.Context, in *PwdReset, opts ...client.CallOption) (*PwdResetResponse, error)
+	//ValidatePwdResetToken 校验token是否在有效期内
+	ValidatePwdResetToken(ctx context.Context, in *Token, opts ...client.CallOption) (*Token, error)
+	// DelPwdResetToken 删除已经校验的重置密码token
+	DelPwdResetToken(ctx context.Context, in *PwdReset, opts ...client.CallOption) (*PwdResetResponse, error)
 }
 
 type userServiceClient struct {
@@ -420,8 +539,8 @@ func NewUserServiceClient(serviceName string, c client.Client) UserServiceClient
 	}
 }
 
-func (c *userServiceClient) Create(ctx context.Context, in *User, opts ...client.CallOption) (*Response, error) {
-	req := c.c.NewRequest(c.serviceName, "UserService.Create", in)
+func (c *userServiceClient) Register(ctx context.Context, in *User, opts ...client.CallOption) (*Response, error) {
+	req := c.c.NewRequest(c.serviceName, "UserService.Register", in)
 	out := new(Response)
 	err := c.c.Call(ctx, req, out, opts...)
 	if err != nil {
@@ -430,8 +549,8 @@ func (c *userServiceClient) Create(ctx context.Context, in *User, opts ...client
 	return out, nil
 }
 
-func (c *userServiceClient) Get(ctx context.Context, in *User, opts ...client.CallOption) (*Response, error) {
-	req := c.c.NewRequest(c.serviceName, "UserService.Get", in)
+func (c *userServiceClient) GetAllUser(ctx context.Context, in *Request, opts ...client.CallOption) (*Response, error) {
+	req := c.c.NewRequest(c.serviceName, "UserService.GetAllUser", in)
 	out := new(Response)
 	err := c.c.Call(ctx, req, out, opts...)
 	if err != nil {
@@ -440,8 +559,28 @@ func (c *userServiceClient) Get(ctx context.Context, in *User, opts ...client.Ca
 	return out, nil
 }
 
-func (c *userServiceClient) GetAll(ctx context.Context, in *Request, opts ...client.CallOption) (*Response, error) {
-	req := c.c.NewRequest(c.serviceName, "UserService.GetAll", in)
+func (c *userServiceClient) GetByAccount(ctx context.Context, in *User, opts ...client.CallOption) (*Response, error) {
+	req := c.c.NewRequest(c.serviceName, "UserService.GetByAccount", in)
+	out := new(Response)
+	err := c.c.Call(ctx, req, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *userServiceClient) GetByEmail(ctx context.Context, in *User, opts ...client.CallOption) (*Response, error) {
+	req := c.c.NewRequest(c.serviceName, "UserService.GetByEmail", in)
+	out := new(Response)
+	err := c.c.Call(ctx, req, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *userServiceClient) GetByPhone(ctx context.Context, in *User, opts ...client.CallOption) (*Response, error) {
+	req := c.c.NewRequest(c.serviceName, "UserService.GetByPhone", in)
 	out := new(Response)
 	err := c.c.Call(ctx, req, out, opts...)
 	if err != nil {
@@ -470,8 +609,8 @@ func (c *userServiceClient) ValidateToken(ctx context.Context, in *Token, opts .
 	return out, nil
 }
 
-func (c *userServiceClient) CheckUniqueAccount(ctx context.Context, in *User, opts ...client.CallOption) (*Response, error) {
-	req := c.c.NewRequest(c.serviceName, "UserService.CheckUniqueAccount", in)
+func (c *userServiceClient) UpdateUser(ctx context.Context, in *User, opts ...client.CallOption) (*Response, error) {
+	req := c.c.NewRequest(c.serviceName, "UserService.UpdateUser", in)
 	out := new(Response)
 	err := c.c.Call(ctx, req, out, opts...)
 	if err != nil {
@@ -480,9 +619,9 @@ func (c *userServiceClient) CheckUniqueAccount(ctx context.Context, in *User, op
 	return out, nil
 }
 
-func (c *userServiceClient) CheckUniqueEmail(ctx context.Context, in *User, opts ...client.CallOption) (*Response, error) {
-	req := c.c.NewRequest(c.serviceName, "UserService.CheckUniqueEmail", in)
-	out := new(Response)
+func (c *userServiceClient) CreatePwdResetToken(ctx context.Context, in *PwdReset, opts ...client.CallOption) (*PwdResetResponse, error) {
+	req := c.c.NewRequest(c.serviceName, "UserService.CreatePwdResetToken", in)
+	out := new(PwdResetResponse)
 	err := c.c.Call(ctx, req, out, opts...)
 	if err != nil {
 		return nil, err
@@ -490,9 +629,19 @@ func (c *userServiceClient) CheckUniqueEmail(ctx context.Context, in *User, opts
 	return out, nil
 }
 
-func (c *userServiceClient) CheckUniquePhone(ctx context.Context, in *User, opts ...client.CallOption) (*Response, error) {
-	req := c.c.NewRequest(c.serviceName, "UserService.CheckUniquePhone", in)
-	out := new(Response)
+func (c *userServiceClient) ValidatePwdResetToken(ctx context.Context, in *Token, opts ...client.CallOption) (*Token, error) {
+	req := c.c.NewRequest(c.serviceName, "UserService.ValidatePwdResetToken", in)
+	out := new(Token)
+	err := c.c.Call(ctx, req, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *userServiceClient) DelPwdResetToken(ctx context.Context, in *PwdReset, opts ...client.CallOption) (*PwdResetResponse, error) {
+	req := c.c.NewRequest(c.serviceName, "UserService.DelPwdResetToken", in)
+	out := new(PwdResetResponse)
 	err := c.c.Call(ctx, req, out, opts...)
 	if err != nil {
 		return nil, err
@@ -503,19 +652,28 @@ func (c *userServiceClient) CheckUniquePhone(ctx context.Context, in *User, opts
 // Server API for UserService service
 
 type UserServiceHandler interface {
-	// 创建用户
-	Create(context.Context, *User, *Response) error
-	// 通过主键ID获取用户信息
-	Get(context.Context, *User, *Response) error
-	// 获取所有的用户信息
-	GetAll(context.Context, *Request, *Response) error
-	// 认证接口
+	//Register 创建用户
+	Register(context.Context, *User, *Response) error
+	//GetAllUser 获取所有的用户信息
+	GetAllUser(context.Context, *Request, *Response) error
+	//GetByAccount 通过账号获取用户信息
+	GetByAccount(context.Context, *User, *Response) error
+	//GetByEmail 通过用户邮箱获取用户信息
+	GetByEmail(context.Context, *User, *Response) error
+	//GetByPhone 通过手机号获取用户信息
+	GetByPhone(context.Context, *User, *Response) error
+	//Auth 认证接口
 	Auth(context.Context, *User, *Token) error
-	// 密码校验
+	//ValidateToken 密码校验
 	ValidateToken(context.Context, *Token, *Token) error
-	CheckUniqueAccount(context.Context, *User, *Response) error
-	CheckUniqueEmail(context.Context, *User, *Response) error
-	CheckUniquePhone(context.Context, *User, *Response) error
+	//UpdateUser 修改用户信息
+	UpdateUser(context.Context, *User, *Response) error
+	//CreatePwdResetToken 创建重置密码Token
+	CreatePwdResetToken(context.Context, *PwdReset, *PwdResetResponse) error
+	//ValidatePwdResetToken 校验token是否在有效期内
+	ValidatePwdResetToken(context.Context, *Token, *Token) error
+	// DelPwdResetToken 删除已经校验的重置密码token
+	DelPwdResetToken(context.Context, *PwdReset, *PwdResetResponse) error
 }
 
 func RegisterUserServiceHandler(s server.Server, hdlr UserServiceHandler, opts ...server.HandlerOption) {
@@ -526,16 +684,24 @@ type UserService struct {
 	UserServiceHandler
 }
 
-func (h *UserService) Create(ctx context.Context, in *User, out *Response) error {
-	return h.UserServiceHandler.Create(ctx, in, out)
+func (h *UserService) Register(ctx context.Context, in *User, out *Response) error {
+	return h.UserServiceHandler.Register(ctx, in, out)
 }
 
-func (h *UserService) Get(ctx context.Context, in *User, out *Response) error {
-	return h.UserServiceHandler.Get(ctx, in, out)
+func (h *UserService) GetAllUser(ctx context.Context, in *Request, out *Response) error {
+	return h.UserServiceHandler.GetAllUser(ctx, in, out)
 }
 
-func (h *UserService) GetAll(ctx context.Context, in *Request, out *Response) error {
-	return h.UserServiceHandler.GetAll(ctx, in, out)
+func (h *UserService) GetByAccount(ctx context.Context, in *User, out *Response) error {
+	return h.UserServiceHandler.GetByAccount(ctx, in, out)
+}
+
+func (h *UserService) GetByEmail(ctx context.Context, in *User, out *Response) error {
+	return h.UserServiceHandler.GetByEmail(ctx, in, out)
+}
+
+func (h *UserService) GetByPhone(ctx context.Context, in *User, out *Response) error {
+	return h.UserServiceHandler.GetByPhone(ctx, in, out)
 }
 
 func (h *UserService) Auth(ctx context.Context, in *User, out *Token) error {
@@ -546,14 +712,18 @@ func (h *UserService) ValidateToken(ctx context.Context, in *Token, out *Token) 
 	return h.UserServiceHandler.ValidateToken(ctx, in, out)
 }
 
-func (h *UserService) CheckUniqueAccount(ctx context.Context, in *User, out *Response) error {
-	return h.UserServiceHandler.CheckUniqueAccount(ctx, in, out)
+func (h *UserService) UpdateUser(ctx context.Context, in *User, out *Response) error {
+	return h.UserServiceHandler.UpdateUser(ctx, in, out)
 }
 
-func (h *UserService) CheckUniqueEmail(ctx context.Context, in *User, out *Response) error {
-	return h.UserServiceHandler.CheckUniqueEmail(ctx, in, out)
+func (h *UserService) CreatePwdResetToken(ctx context.Context, in *PwdReset, out *PwdResetResponse) error {
+	return h.UserServiceHandler.CreatePwdResetToken(ctx, in, out)
 }
 
-func (h *UserService) CheckUniquePhone(ctx context.Context, in *User, out *Response) error {
-	return h.UserServiceHandler.CheckUniquePhone(ctx, in, out)
+func (h *UserService) ValidatePwdResetToken(ctx context.Context, in *Token, out *Token) error {
+	return h.UserServiceHandler.ValidatePwdResetToken(ctx, in, out)
+}
+
+func (h *UserService) DelPwdResetToken(ctx context.Context, in *PwdReset, out *PwdResetResponse) error {
+	return h.UserServiceHandler.DelPwdResetToken(ctx, in, out)
 }

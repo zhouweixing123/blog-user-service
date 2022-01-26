@@ -2,29 +2,44 @@ syntax = "proto3";
 package blog.service.user;
 // 相当于路由
 service UserService {
-  // 创建用户
-  rpc Create(User) returns (Response){}
-  // 通过主键ID获取用户信息
-  rpc Get(User) returns (Response){}
-  // 获取所有的用户信息
-  rpc GetAll(Request) returns (Response){}
-  // 认证接口
+  //Register 创建用户
+  rpc Register(User) returns (Response){}
+
+  //GetAllUser 获取所有的用户信息
+  rpc GetAllUser(Request) returns (Response){}
+
+  //GetByAccount 通过账号获取用户信息
+  rpc GetByAccount(User) returns (Response){}
+
+  //GetByEmail 通过用户邮箱获取用户信息
+  rpc GetByEmail(User) returns (Response){}
+
+  //GetByPhone 通过手机号获取用户信息
+  rpc GetByPhone(User) returns (Response){}
+
+  //Auth 认证接口
   rpc Auth(User) returns (Token){}
-  // 密码校验
+
+  //ValidateToken 密码校验
   rpc ValidateToken(Token) returns (Token){}
 
+  //UpdateUser 修改用户信息
+  rpc UpdateUser(User) returns (Response){}
 
-  rpc CheckUniqueAccount(User) returns (Response){}
+  //CreatePwdResetToken 创建重置密码Token
+  rpc CreatePwdResetToken(PwdReset) returns (PwdResetResponse){}
 
-  rpc CheckUniqueEmail(User) returns (Response){}
+  //ValidatePwdResetToken 校验token是否在有效期内
+  rpc ValidatePwdResetToken(Token) returns (Token){}
 
-  rpc CheckUniquePhone(User) returns (Response){}
+  // DelPwdResetToken 删除已经校验的重置密码token
+  rpc DelPwdResetToken(PwdReset) returns (PwdResetResponse){}
 }
 
 message User {
   string id = 1;
   string account = 2;
-  int64 ip = 3;
+  int64  ip = 3;
   string email = 4;
   string profile_photo = 5;
   string registration_time = 6;
@@ -32,7 +47,8 @@ message User {
   string phone = 8;
   string nickname = 9;
   string created_at = 10;
-  string pwd = 11;
+  string updated_at = 11;
+  string pwd = 12;
 }
 
 message Request {}
@@ -52,4 +68,14 @@ message Token {
   string token = 1;
   bool valid = 2;
   repeated Error errors = 3;
+}
+
+message PwdReset {
+  string email = 1;
+  string token = 2;
+}
+
+message PwdResetResponse {
+  PwdReset pwdReset = 1;
+  repeated Error errors = 2;
 }

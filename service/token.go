@@ -2,7 +2,7 @@ package service
 
 import (
 	"github.com/dgrijalva/jwt-go"
-	blog_user_service "github.com/zhouweixing123/blog-user-service/proto/user"
+	"github.com/zhouweixing123/blog-user-service/model"
 	repo2 "github.com/zhouweixing123/blog-user-service/repo"
 	"log"
 	"time"
@@ -12,13 +12,13 @@ import (
 var key = []byte("zwx114003...")
 
 type UserClaims struct {
-	User *blog_user_service.User
+	User *model.User
 	jwt.StandardClaims
 }
 
 type Authable interface {
 	Decode(token string) (*UserClaims, error)
-	Encode(user *blog_user_service.User) (string, error)
+	Encode(user *model.User) (string, error)
 }
 
 type TokenService struct {
@@ -38,10 +38,10 @@ func (srv *TokenService) Decode(token string) (*UserClaims, error) {
 	}
 }
 
-func (srv *TokenService) Encode(user *blog_user_service.User) (string, error) {
+func (srv *TokenService) Encode(user *model.User) (string, error) {
 	// 过期时间
 	expireToken := time.Now().Add(time.Hour * 72).Unix()
-	log.Printf("获取到的用户信息，永不加密%v", user)
+	log.Printf("获取到的用户信息，用于加密%v", user)
 	claims := UserClaims{
 		user,
 		jwt.StandardClaims{
